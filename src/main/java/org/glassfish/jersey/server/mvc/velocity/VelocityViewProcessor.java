@@ -56,10 +56,7 @@ import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
-import java.io.IOException;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.Reader;
+import java.io.*;
 import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
@@ -86,12 +83,13 @@ final class VelocityViewProcessor extends AbstractTemplateProcessor<Template> {
                         }
                     }
                 });
+        Velocity.init();
 
     }
 
     @Override
     protected Template resolve(final String templateReference, final Reader reader) throws Exception {
-        return Velocity.getTemplate(templateReference);
+        return Velocity.getTemplate(templateReference, "UTF-8");
     }
 
     @Override
