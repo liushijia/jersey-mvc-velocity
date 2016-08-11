@@ -41,15 +41,14 @@ package org.glassfish.jersey.server.mvc.velocity;
 
 
 import org.apache.velocity.app.Velocity;
-import org.apache.velocity.app.VelocityEngine;
 import org.apache.velocity.runtime.RuntimeConstants;
+import org.apache.velocity.runtime.resource.loader.ClasspathResourceLoader;
 import org.apache.velocity.tools.config.Configuration;
+import org.apache.velocity.tools.view.WebappResourceLoader;
 import org.jvnet.hk2.annotations.Optional;
 
 import javax.inject.Inject;
 import javax.servlet.ServletContext;
-import java.io.File;
-import java.net.URL;
 
 
 public class VelocityDefaultConfigurationFactory implements VelocityConfigurationFactory {
@@ -58,13 +57,16 @@ public class VelocityDefaultConfigurationFactory implements VelocityConfiguratio
 
     @Inject
     public VelocityDefaultConfigurationFactory(@Optional final ServletContext servletContext) {
-        URL url = this.getClass().getResource("/");
-        File file = new File(url.getFile());
-        Velocity.setProperty(RuntimeConstants.RESOURCE_LOADER, "file");
-        Velocity.setProperty(RuntimeConstants.FILE_RESOURCE_LOADER_PATH, file.getAbsolutePath());
+        String loader = "class";
+        Velocity.setProperty("class.resource.loader.class", ClasspathResourceLoader.class.getName());
         Velocity.setProperty(RuntimeConstants.FILE_RESOURCE_LOADER_CACHE, "true");
 
-        System.out.println(file.getAbsoluteFile());
+        if (servletContext != null) {
+            Velocity.setProperty("webapp.resource.loader.class", WebappResourceLoader.class.getName());
+            Velocity.setProperty("webapp.resource.loader.path", "/WEB-INF/");
+            loader += ",webapp";
+        }
+        Velocity.setProperty(RuntimeConstants.RESOURCE_LOADER, loader);
 
         configuration = new Configuration();
     }

@@ -88,7 +88,6 @@ final class VelocityViewProcessor extends AbstractTemplateProcessor<Template> {
                     }
                 });
         Velocity.init();
-
     }
 
     @Override

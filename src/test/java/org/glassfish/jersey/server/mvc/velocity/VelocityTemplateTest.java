@@ -10,7 +10,6 @@ import org.junit.Test;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
 import javax.ws.rs.core.Application;
 import java.io.IOException;
 import java.util.TreeMap;
@@ -48,6 +47,7 @@ public class VelocityTemplateTest extends JerseyTest {
         enable(TestProperties.DUMP_ENTITY);
 
         return new ResourceConfig(HelloResource.class, VelocityMvcFeature.class)
+                .property(VelocityMvcFeature.TEMPLATE_BASE_PATH, "templates")
                 .property(VelocityMvcFeature.ENCODING, "UTF-8");
 
     }
