@@ -51,6 +51,7 @@
 
     <artifactId>jersey-mvc-velocity</artifactId>
     <name>jersey-ext-mvc-velocity</name>
+    <version>2.23.2-SNAPSHOT</version>
 
     <description>
         Jersey extension module providing support for Velocity templates.
@@ -77,7 +78,7 @@
         <dependency>
             <groupId>org.glassfish.jersey.ext</groupId>
             <artifactId>jersey-mvc</artifactId>
-            <version>${project.version}</version>
+            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.velocity</groupId>

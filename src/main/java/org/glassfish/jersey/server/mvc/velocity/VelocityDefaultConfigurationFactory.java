@@ -63,7 +63,8 @@ public class VelocityDefaultConfigurationFactory implements VelocityConfiguratio
 
         if (servletContext != null) {
             Velocity.setProperty("webapp.resource.loader.class", WebappResourceLoader.class.getName());
-            Velocity.setProperty("webapp.resource.loader.path", "/WEB-INF/");
+            Velocity.setProperty("webapp.resource.loader.path", "/");
+            Velocity.setApplicationAttribute("javax.servlet.ServletContext", servletContext);
             loader += ",webapp";
         }
         Velocity.setProperty(RuntimeConstants.RESOURCE_LOADER, loader);
